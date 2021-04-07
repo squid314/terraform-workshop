@@ -21,6 +21,11 @@ resource "azurerm_network_interface" "inst-bastion-nic" {
   }
 }
 
+resource "azurerm_network_interface_application_security_group_association" "inst-bastion-nic-asg-bastion" {
+  network_interface_id = azurerm_network_interface.inst-bastion-nic.id
+  application_security_group_id =azurerm_application_security_group.asg-bastion.id
+}
+
 resource "azurerm_linux_virtual_machine" "inst-bastion" {
   depends_on = [azurerm_network_interface.inst-bastion-nic]
 
