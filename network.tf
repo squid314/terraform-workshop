@@ -1,14 +1,14 @@
 resource "azurerm_virtual_network" "vnet-main" {
-  name = var.vnet-name
-  resource_group_name = var.resource-group-name
-  location            = "West US 2"
+  name = "${var.resource-prefix}-vnet-main"
+  resource_group_name = azurerm_resource_group.rg-main.name
+  location            = azurerm_resource_group.rg-main.location
   address_space = [var.vnet-space]
 }
 
 resource "azurerm_subnet" "subnet-main" {
-  name = var.subnet-name
-  resource_group_name = var.resource-group-name
-  virtual_network_name = var.vnet-name
+  name = "${var.resource-prefix}-subnet-main"
+  resource_group_name = azurerm_resource_group.rg-main.name
+  virtual_network_name = azurerm_virtual_network.vnet-main.name
   address_prefixes = [var.subnet-space]
 }
 
