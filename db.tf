@@ -25,4 +25,12 @@ resource "azurerm_sql_firewall_rule" "db-fwrule-myip" {
   end_ip_address   = var.my-ip-address
 }
 
+resource "azurerm_sql_firewall_rule" "db-fwrule-all-vnets" {
+  name = "${var.resource-prefix}-db-fwrule-all-vnets"
+  resource_group_name = azurerm_resource_group.rg-main.name
+  server_name = azurerm_mssql_server.db-server.name
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
+}
+
 // vi: set ts=2 sts=2 sw=2 et ft=tf fdm=indent :
