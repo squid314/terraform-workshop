@@ -54,16 +54,6 @@ output "bastion-public-ip" {
   value = azurerm_public_ip.inst-bastion-public-ip.ip_address
 }
 
-resource "azurerm_public_ip" "inst-app-public-ip" {
-  name = "${var.resource-prefix}-inst-app-public-ip"
-  resource_group_name = azurerm_resource_group.rg-main.name
-  location            = azurerm_resource_group.rg-main.location
-
-  allocation_method = "Static"
-  sku = "Standard"
-  domain_name_label = "${var.resource-prefix}-inst-app"
-}
-
 resource "azurerm_network_interface" "inst-app-nic" {
   name = "${var.resource-prefix}-inst-app-nic"
   resource_group_name = azurerm_resource_group.rg-main.name
@@ -73,7 +63,6 @@ resource "azurerm_network_interface" "inst-app-nic" {
     name = "primary"
     subnet_id = azurerm_subnet.subnet-main.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id = azurerm_public_ip.inst-app-public-ip.id
   }
 }
 
